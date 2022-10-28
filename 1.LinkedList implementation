@@ -1,0 +1,49 @@
+public class MyClass{
+    Node1 head;
+    Node1 tail;
+    class Node1{
+        int data;
+        Node1 next;
+    
+        public Node1(int n){
+            data = n;
+            next = null;
+        }
+    }
+    
+    public void addNode(int n){
+        Node1 newNode = new Node1(n);
+        if(head==null){
+            head = newNode;
+            tail = newNode;
+        }
+        else{
+            tail.next = newNode;
+            tail = tail.next;
+        }
+    }
+    
+    
+    
+    public void display(){
+        if(head==null){
+            return;
+        }
+        Node1 current = head;
+        while(current!=null){
+            System.out.println(current.data);
+            current = current.next;
+        }
+    }
+    
+    public static void main(String args[]) {
+        MyClass obj = new MyClass();
+        obj.addNode(9);
+        obj.addNode(9);
+        obj.addNode(9);
+        obj.addNode(9);
+        obj.addNode(9);
+        obj.display();
+        
+    }
+}
