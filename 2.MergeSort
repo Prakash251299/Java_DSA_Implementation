@@ -1,0 +1,71 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+public class MyClass{
+    static void display(ArrayList<Integer> arr,int a,int b){
+        for(int i=a;i<=b;i++){
+            System.out.print(arr.get(i)+" ");
+        }
+        System.out.println();
+    }
+    
+    static void merge(ArrayList<Integer> arr,int a1,int b1,int a2,int b2){
+        int i=a1,j=a2,k=0;
+        int c[] = new int[b2-a1+1];
+        while(true){
+            if(i==b1+1){
+                for(;j<=b2;j++){
+                    c[k] = arr.get(j);k++;
+                }
+                break;
+            }
+            if(j==b2+1){
+                for(;i<=b1;i++){
+                    c[k] = arr.get(i);k++;
+                }
+                break;
+            }
+            if(arr.get(i)<=arr.get(j)){
+                c[k] = arr.get(i);k++;
+                i++;
+            }
+            else{
+                c[k] = arr.get(j);j++;k++;
+            }
+        }
+        for(i=a1,k=0;i<=b2;i++){
+            arr.set(i,c[k]);k++;
+        }
+    }
+    
+    static void mergeSort(ArrayList<Integer> arr,int a,int b){
+        if(a==b){
+            return;
+        }
+        int mid = (a+b)/2;
+        mergeSort(arr,a,mid);
+        mergeSort(arr,mid+1,b);
+        merge(arr,a,mid,mid+1,b);
+    }
+    public static void main(String[] args) throws IOException{
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        int choice;
+        while(true){
+            System.out.println("1. Insert\n2. Exit");
+            choice = Integer.parseInt(reader.readLine());
+            if(choice==2){
+                break;
+            }
+            System.out.println("Enter a number");
+            int a = Integer.parseInt(reader.readLine());
+            arr.add(a);
+        }
+        System.out.print("Before sorting: ");
+        display(arr,0,arr.size()-1);
+        mergeSort(arr,0,arr.size()-1);
+        System.out.print("After sorting: ");
+        display(arr,0,arr.size()-1);
+    }
+}
